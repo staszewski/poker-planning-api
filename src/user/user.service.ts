@@ -20,6 +20,7 @@ export class UserService {
     }
     user = await this.userRepository.create(data);
     await this.userRepository.save(user);
+    console.log('user', user.toResponseObject());
     return user.toResponseObject();
   }
 }

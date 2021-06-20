@@ -35,4 +35,10 @@ export class UserEntity {
     const responseObject: UserRo = { id, created, email };
     return responseObject;
   }
+
+  constructor(email?: string, password?: string, created?: Date) {
+    this.email = email || '';
+    this.password = password || '';
+    this.created = created || new Date();
+  }
 }
