@@ -5,10 +5,14 @@ import UserRo from './user-ro';
 
 @Controller('user')
 export class UserController {
-  constructor(private useService: UserService) {}
+  constructor(private userService: UserService) {}
 
   @Post('register')
   register(@Body() user: UserDTO): Promise<UserRo> {
-    return this.useService.register(user);
+    return this.userService.register(user);
+  }
+  @Post('login')
+  async login(@Body() user) {
+    return this.userService.login(user);
   }
 }
