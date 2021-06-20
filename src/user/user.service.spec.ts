@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
-// TODO: Zmockowac findone zeby nie zwracalo tez wartosci
 const date = new Date();
 const user = new UserEntity('newUser@email.com', 'somepassword', date);
 
