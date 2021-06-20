@@ -3,6 +3,9 @@ import { UserService } from './user.service';
 import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { AuthService } from '../auth/auth.service';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
 const date = new Date();
 const user = new UserEntity('newUser@email.com', 'somepassword', date);
@@ -13,7 +16,15 @@ describe('UsersService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        PassportModule,
+        JwtModule.register({
+          secret: 'secret',
+          signOptions: { expiresIn: '60s' },
+        }),
+      ],
       providers: [
+        AuthService,
         UserService,
         {
           provide: getRepositoryToken(UserEntity),
