@@ -11,7 +11,7 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    private authSerivce: AuthService,
+    private authService: AuthService,
   ) {}
 
   async register(data: UserDTO): Promise<UserRo> {
@@ -33,15 +33,15 @@ export class UserService {
     const { email, password } = data;
     const user = await this.findUserByEmail(email);
     if (user) {
-      const passwordMatches = this.authSerivce.comparePasswords(
+      const passwordMatches = this.authService.comparePasswords(
         data.password,
         user.password,
       );
       if (passwordMatches) {
-        return await this.authSerivce.generateJwt({ email, password });
+        return await this.authService.generateJwt({ email, password });
       } else {
         throw new HttpException(
-          'Login was not Successfulll',
+          'Login was not Successful',
           HttpStatus.UNAUTHORIZED,
         );
       }
