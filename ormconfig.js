@@ -11,7 +11,5 @@ module.exports = {
   synchronize: true,
   dropSchema: false,
   logging: true,
-  // This make e2e work, but app break
-  // entities: [__dirname + '/**/*.entity{.ts,.js}'],
   entities: ['dist/**/*.entity{.ts,.js}'],
 };
