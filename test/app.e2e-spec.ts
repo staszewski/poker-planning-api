@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { WsAdapter } from '@nestjs/platform-ws';
-import { Connection, Repository } from 'typeorm';
+import { Connection, Repository, Table } from 'typeorm';
 import { UserEntity } from '../src/user/user.entity';
 
 describe('AppController (e2e)', () => {
@@ -24,13 +24,14 @@ describe('AppController (e2e)', () => {
     repository = connection.manager.getRepository(UserEntity);
     await connection.dropDatabase();
     await connection.runMigrations();
+    await connection.synchronize();
   });
 
   afterEach(async () => {
     await app.close();
   });
 
-  it('/ (GET)', () => {
+  it('/user/register (POST)', () => {
     repository.create();
     return request(app.getHttpServer())
       .post('/user/register')
