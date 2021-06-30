@@ -14,6 +14,7 @@ const config = require('../ormconfig');
     TypeOrmModule.forRoot({
       ...config,
       entities: getMetadataArgsStorage().tables.map((tbl) => tbl.target),
+      synchronize: true,
     }),
     UserModule,
     AuthModule,
