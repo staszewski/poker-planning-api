@@ -9,6 +9,7 @@ import { UserEntity } from '../src/user/user.entity';
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let repository: Repository<UserEntity>;
+  let connection: any;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -19,7 +20,7 @@ describe('AppController (e2e)', () => {
     app.useWebSocketAdapter(new WsAdapter());
     await app.init();
 
-    const connection = app.get(Connection);
+    connection = app.get(Connection);
 
     repository = connection.manager.getRepository(UserEntity);
     await connection.dropDatabase();
@@ -28,6 +29,7 @@ describe('AppController (e2e)', () => {
   });
 
   afterEach(async () => {
+    await connection.dropDatabase();
     await app.close();
   });
 
