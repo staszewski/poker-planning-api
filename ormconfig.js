@@ -3,7 +3,8 @@ require('dotenv').config();
 
 module.exports = {
   type: 'postgres',
-  host: process.env.DATABASE_HOST,
+  // localhost works for running npm start, process.env.DATABASE_HOST for docker
+  host: process.env.DATABASE_HOST || 'localhost',
   port: 5432,
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
